@@ -1,3 +1,3 @@
 ##Soundcloud-v1.1
 
-some description of your project
+Radio in JavaScript that mimics pandora but using soundcloud API
