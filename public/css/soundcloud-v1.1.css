@@ -1,0 +1,93 @@
+/* Let's put some makeup! */
+label {
+  color: #DA6100 !important;
+}
+
+input, select {
+  background-color: rgba(0,0,0,0.4) !important;
+  color: #DA6100 !important;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #fff;
+}
+
+a {
+  color: #DA6100 !important;
+}
+
+#log_in{
+  background-image: url(/src/dark-metal-grid-6.jpg) !important;
+  padding: 1em;
+  border-radius: 1em;
+}
+
+#log_in fieldset legend {
+  background-color: transparent !important;
+  color: #DA6100 !important;
+}
+
+.player {
+  background-image: url(/src/dark-metal-grid-6.jpg);
+  border-radius: 1em;
+  padding: 0.5em;
+  color: #DA6100 !important;
+}
+
+#song-title {
+  background-color: rgba(0,0,0,0.4);
+  padding: 0.2em;
+  border: 1px solid #2A2827;
+  height: 2em;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#player-controllers {
+  text-align: center;
+}
+
+#play-btn {
+  display: none;
+}
+
+.btn {
+  display: inline-block;
+  height: 3em;
+  width: 3em;
+}
+
+.new-log {
+  display: inline-block;
+  float: right;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+#new-radio {
+  border: 1px solid #2A2827;
+  padding: 1em;
+}
+
+#player-list {
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid #2A2827;
+  height: 20em;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.plylist-element {
+  display: inline-block;
+  margin: 0;
+}
+
+.delete-radio {
+  float: right;
+}
+
+#player-list li {
+  font-family: "Courier New", Courier, monospace;
+}
+
+#new-radio {
+  display: none;
+}
