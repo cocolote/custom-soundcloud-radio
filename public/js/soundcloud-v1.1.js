@@ -24,7 +24,8 @@ function sameRadio(name, category) {
 
 function initialize(client){
   SC.initialize({
-    client_id: client
+    client_id: client,
+    https: true
   });
 }
 
