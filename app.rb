@@ -1,7 +1,5 @@
 require 'sinatra'
 require 'sinatra/activerecord'
-#this is dedicated to Spencer, great EE who show us the power of pry!
-require 'pry'
 # to make the models available in the app
 require 'dotenv'
 Dotenv.load
