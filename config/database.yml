@@ -15,3 +15,12 @@ test:
   pool: 5
   username:
   password:
+
+# Configure the database used when in the production environment
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: library_production
+  pool: 5
+  username:
+  password:

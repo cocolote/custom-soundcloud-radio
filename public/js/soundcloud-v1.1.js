@@ -2,9 +2,13 @@
 
 // INITIAL STATE
 var sameName;
+var seconds;
+var sMinutes;
+var sSeconds;
 var currentTracks;
 var radioName;
 var radioCategory;
+var CLIENT_ID = '7def95cd192f94f4bfca5a1e0c2768ba';
 $('.delete-radio').hide();
 
 // HELPERS
@@ -32,7 +36,7 @@ function toggleButton(track) {
   }
 }
 
-function stopMusic() {
+function stopMusic(track) {
   if(typeof(soundManager) !== 'undefined'){
     soundManager.stopAll();
   }
@@ -71,7 +75,7 @@ $('.radios').on('click', function(e) {
 
 // CREATES THE PLAYLIST
 function getTracks() {
-  initialize('CLIENT_ID');
+  initialize(CLIENT_ID);
   SC.get('/tracks', getParameters(radioCategory), function(songs) {
     currentTracks = songs;
     playSong(currentTracks);
@@ -91,10 +95,11 @@ function getParameters(radio) {
 
 // GETS THE SONG AND PLAYS IT
 function playSong(tracks) {
-  debugger
+  stopMusic();
+  resetTimer();
   var i = Math.floor(Math.random() * 100);
   $('#song-title').replaceWith('<p id="song-title"><marquee behavior="scroll" direction="left">' + tracks[i].title + '</marquee></p>');
-  SC.stream('/tracks/' + tracks[i].id, {flashVersion: 9, autoPlay: true}, function(track) {
+  SC.stream('/tracks/' + tracks[i].id, {flashVersion: 9, autoPlay: true, onfinish: function() { playSong(currentTracks) }}, function(track) {
     songController(track);
   });
 }
@@ -102,13 +107,15 @@ function playSong(tracks) {
 // NEXT SONG
 $('#next-btn').on('click', function() {
   stopMusic();
+  resetTimer();
   playSong(currentTracks);
 });
+
 
 // CONTROLLER FOR THE PLAY PAUSE BUTTON
 function songController(track) {
   toggleButton(track);
-
+  timer(track);
   $('#play-pause-btn').on('click', function() {
     if (track.paused) {
       track.play();
@@ -117,4 +124,25 @@ function songController(track) {
     }
     toggleButton(track);
   });
+}
+
+// UPDATES THE SONG TIMER
+function timer(track) {
+  setInterval(function() {
+    min = Math.floor(seconds / 60);
+    sec = Math.floor(seconds % 60);
+    min.toString().length === 1 ? sMinutes = '0' + min : sMinutes = min;
+    sec.toString().length === 1 ? sSeconds = '0' + sec : sSeconds = sec;
+    console.log('seconds: ' + seconds);
+    if (!track.paused) {
+      seconds++;
+    }
+    $('#timer-p').text(sMinutes + ':' + sSeconds) }, 1000);
+}
+
+function resetTimer() {
+  seconds = 0;
+  var sMinutes = "";
+  var sSeconds = "";
+  $('#timer-p').replaceWith('<p id="timer-p">00:00</p>');
 }
