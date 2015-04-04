@@ -33,15 +33,26 @@ a {
   color: #DA6100 !important;
 }
 
+.radio-timer {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+#song-title-container {
+  margin-bottom: 0;
+}
+
 #song-title {
+  margin-bottom: 0;
   background-color: rgba(0,0,0,0.4);
   padding: 0.2em;
   border: 1px solid #2A2827;
   height: 2em;
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #player-controllers {
+  margin-top: 3em;
   text-align: center;
 }
 
@@ -51,20 +62,56 @@ a {
 
 .btn {
   display: inline-block;
-  height: 3em;
-  width: 3em;
+  height: 4em;
+  width: 4em;
+  margin: 1em;
+  padding: 0.5em;
+  border-radius: 100%;
+}
+
+.presed-button {
+  background-image: url(/src/orange-splash-ink-hi.png);
+  background-size: 100% 100%;
+  padding: 0.7em;
+}
+
+#progress-bar-container {
+  margin-top: 0;
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid #2A2827;
+  height: 0.25em;
+}
+
+#progess-bar {
+  margin-top: 0;
+  background-color: #DA6100;
+  margin: 0;
+  padding: 0;
+  height: 0.2em;
+  width: 0;
 }
 
 .new-log {
   display: inline-block;
   float: right;
-  margin-left: 1em;
+  margin-left: 0.5em;
   margin-right: 1em;
 }
 
+#new-radio-button,
+#logout-button {
+  /*border: 1px solid red;*/
+  width: 1.5em;
+  margin-bottom: 0.5em;
+}
+
 #new-radio {
+  background-color: rgba(0,0,0,0.8);
   border: 1px solid #2A2827;
+  position: absolute;
   padding: 1em;
+  width: 29.8em;
+  display: none;
 }
 
 #player-list {
@@ -85,9 +132,23 @@ a {
 }
 
 #player-list li {
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-#new-radio {
-  display: none;
+.light-up {
+  background-color: rgba(255, 153, 0, 0.2);
+}
+
+.splash {
+  background-image: url(/src/orange-splash-ink-hi.png);
+  background-size: 100% 100%;
+  height: 9em;
+  margin-top: 1em;
+  padding-left: 0;
+  text-align: center;
+}
+
+.splash h4 {
+  margin-top: 2.5em;
+  margin-left: 0.5em;
 }

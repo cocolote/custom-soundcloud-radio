@@ -2,11 +2,11 @@
 
 // INITIAL STATE
 var sameName;
-var seconds;
 var sMinutes;
 var sSeconds;
 var currentTracks;
 var radioName;
+var trackID;
 var radioCategory;
 var CLIENT_ID = '7def95cd192f94f4bfca5a1e0c2768ba';
 $('.delete-radio').hide();
@@ -24,8 +24,7 @@ function sameRadio(name, category) {
 
 function initialize(client){
   SC.initialize({
-    client_id: client,
-    https: true
+    client_id: client
   });
 }
 
@@ -40,28 +39,38 @@ function toggleButton(track) {
 function stopMusic(track) {
   if(typeof(soundManager) !== 'undefined'){
     soundManager.stopAll();
+    var soundsIDs = soundManager.soundIDs;
+    trackID = soundsIDs[0];
+    for (i = 0; i < soundsIDs.length; i++) {
+      soundManager.destroySound(soundsIDs[i]);
+    }
   }
 }
+
+$('.list-element').hover(function() {
+  var count = $(this).attr('count');
+  $('.list-element-' + count).addClass('light-up');
+  $('.delete-radio-' + count).fadeIn(50);
+}, function() {
+  var count = $(this).attr('count');
+  $('.list-element-' + count).removeClass('light-up');
+  $('.delete-radio-' + count).fadeOut(50);
+});
 
 // ### MAIN FUNCTIONALITY ###
 $('#new-radio-button').on('click', function(e) {
   e.preventDefault();
-  $('#new-radio').toggle();
+  if ($('#new-radio').is(':hidden')) {
+    $('#new-radio').slideDown('slow');
+  } else {
+    $('#new-radio').slideUp('slow');
+  }
 });
 
-$('.list-element').hover(function() {
-  var count = $(this).attr('count');
-  $('.delete-radio-' + count).fadeIn(200);
-}, function() {
-  var count = $(this).attr('count');
-  $('.delete-radio-' + count).fadeOut(200);
-});
 
 // GETS THE EVENT ON CLICK ON A RADIO TO CREATE THE PLAY LIST FOR THAT RADIO
 $('.radios').on('click', function(e) {
   e.preventDefault();
-
-  stopMusic();
   radioName = $(this).attr('name');
   radioCategory = $(this).attr('category');
 
@@ -78,6 +87,7 @@ $('.radios').on('click', function(e) {
 function getTracks() {
   initialize(CLIENT_ID);
   SC.get('/tracks', getParameters(radioCategory), function(songs) {
+    stopMusic();
     currentTracks = songs;
     playSong(currentTracks);
   });
@@ -97,18 +107,22 @@ function getParameters(radio) {
 // GETS THE SONG AND PLAYS IT
 function playSong(tracks) {
   stopMusic();
-  resetTimer();
   var i = Math.floor(Math.random() * 100);
   $('#song-title').replaceWith('<p id="song-title"><marquee behavior="scroll" direction="left">' + tracks[i].title + '</marquee></p>');
-  SC.stream('/tracks/' + tracks[i].id, {flashVersion: 9, autoPlay: true, onfinish: function() { playSong(currentTracks) }}, function(track) {
+  SC.stream('/tracks/' + tracks[i].id, {flashVersion: 9, autoPlay: true, multiShot: false, onfinish: function() { playSong(currentTracks) }}, function(track) {
     songController(track);
   });
 }
 
 // NEXT SONG
 $('#next-btn').on('click', function() {
+  $('#next-btn').on('mousedown', function() {
+    $('#next-song').addClass('presed-button');
+    $(this).on('mouseup', function() {
+      $('#next-song').removeClass('presed-button');
+    });
+  });
   stopMusic();
-  resetTimer();
   playSong(currentTracks);
 });
 
@@ -117,6 +131,14 @@ $('#next-btn').on('click', function() {
 function songController(track) {
   toggleButton(track);
   timer(track);
+
+  $('#play-pause-btn').on('mousedown', function() {
+    $('#play-pause').addClass('presed-button');
+    $(this).on('mouseup', function() {
+      $('#play-pause').removeClass('presed-button');
+    });
+  });
+
   $('#play-pause-btn').on('click', function() {
     if (track.paused) {
       track.play();
@@ -130,20 +152,16 @@ function songController(track) {
 // UPDATES THE SONG TIMER
 function timer(track) {
   setInterval(function() {
-    min = Math.floor(seconds / 60);
-    sec = Math.floor(seconds % 60);
-    min.toString().length === 1 ? sMinutes = '0' + min : sMinutes = min;
-    sec.toString().length === 1 ? sSeconds = '0' + sec : sSeconds = sec;
-    console.log('seconds: ' + seconds);
-    if (!track.paused) {
-      seconds++;
-    }
-    $('#timer-p').text(sMinutes + ':' + sSeconds) }, 1000);
-}
-
-function resetTimer() {
-  seconds = 0;
-  var sMinutes = "";
-  var sSeconds = "";
-  $('#timer-p').replaceWith('<p id="timer-p">00:00</p>');
+    if (track.sID === soundManager.soundIDs[0]) {
+        var seconds = track.position / 1000;
+        min = Math.floor(seconds / 60);
+        sec = Math.floor(seconds % 60);
+        min.toString().length === 1 ? sMinutes = '0' + min : sMinutes = min;
+        sec.toString().length === 1 ? sSeconds = '0' + sec : sSeconds = sec;
+        $('#timer-p').text(sMinutes + ':' + sSeconds);
+        containerWidth = $('#progress-bar-container').css('width');
+        progress = parseInt(containerWidth) / (track.durationEstimate / 1000);
+        $('#progess-bar').css('width', (progress * seconds));
+      }
+    }, 100);
 }

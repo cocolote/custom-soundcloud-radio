@@ -1,26 +1,43 @@
 <div class="row player">
   <div class="small-6 columns player-container">
     <h4 id="soundcloud-credit">Powered by <a href="http://www.soundcloud.com">SoundCloud</a></h4>
-    <p id="radio-playing">Radio</p>
+    <div>
+      <p class="radio-timer" id="radio-playing">Radio</p>
+      <div class="radio-timer" id="timer">
+        <p id="timer-p">00:00</p>
+      </div>
+    </div>
+
     <div id="song-title-container">
       <p id="song-title"></p>
     </div>
+    <div id="progress-bar-container">
+      <div id="progess-bar"></div>
+    </div>
+
     <div id="player-controllers">
-      <div id="timer">
-        <p id="timer-p">00:00</p>
-      </div>
-      <div class="btn">
+      <div class="btn" id="play-pause">
          <img id="play-pause-btn" src="/src/play.png" alt="play-pause">
       </div>
-      <div class="btn">
+      <div class="btn" id='next-song'>
         <img id="next-btn" src="/src/fastForward.png" alt="fastforward">
       </div>
     </div>
   </div>
+
+
   <div class="small-6 columns">
     <div class="row">
-      <p class="new-log"><a href="/log_out" id="log_out-button">Log out</a></p>
-      <p class="new-log"><a href="#" id="new-radio-button">New Radio</a></p>
+      <div class="new-log" id="logout-button">
+        <a href="/log_out">
+          <img src="/src/logout.png" alt="logout">
+        </a>
+      </div>
+      <div class="new-log" id="new-radio-button">
+        <a href="#">
+          <img src="/src/new_radio.png" alt="logout">
+        </a>
+      </div>
     </div>
     <div id="new-radio">
       <form id="new-radio-form" action="/new_radio" method="post">
@@ -39,11 +56,12 @@
         </div>
       </form>
     </div>
+
     <div id="player-list">
       <ol>
       <% count = 0 %>
       <% @user.radios.each do |radio| %>
-        <li class="list-element" count="<%= count %>">
+        <li class="list-element list-element-<%= count %>" count="<%= count %>">
           <p class="plylist-element"><a href="#" class="radios" category="<%=radio.category%>" name="<%=radio.name%>"><%= radio.name %></a></p>
           <p class="plylist-element delete-radio delete-radio-<%= count %>"><a href="/delete_radio/<%= radio.id %>">X</a></p>
         </li>
