@@ -57,9 +57,24 @@ $('.list-element').hover(function() {
   $('.delete-radio-' + count).fadeOut(50);
 });
 
+function animateButtons(element) {
+  var parentElement = $('#' + element).parent().attr('id');
+  $('#' + parentElement).addClass('presed-button');
+  $(this).on('mouseup', function() {
+    $('#' + parentElement).removeClass('presed-button');
+  });
+}
+
 // ### MAIN FUNCTIONALITY ###
-$('#new-radio-button').on('click', function(e) {
+// ADD NEW RADIO
+$('#new-radio-button').on('mousedown', function(e) {
   e.preventDefault();
+
+  $('#new-radio-container').addClass('radio-logout');
+  $(this).on('mouseup', function() {
+    $('#new-radio-container').removeClass('radio-logout');
+  });
+
   if ($('#new-radio').is(':hidden')) {
     $('#new-radio').slideDown('slow');
   } else {
@@ -67,6 +82,15 @@ $('#new-radio-button').on('click', function(e) {
   }
 });
 
+// LOG OUT ANIMATION
+$('#new-radio-button').on('mousedown', function(e) {
+  e.preventDefault();
+
+  $('#new-radio-container').addClass('radio-logout');
+  $(this).on('mouseup', function() {
+    $('#new-radio-container').removeClass('radio-logout');
+  });
+});
 
 // GETS THE EVENT ON CLICK ON A RADIO TO CREATE THE PLAY LIST FOR THAT RADIO
 $('.radios').on('click', function(e) {
@@ -81,7 +105,6 @@ $('.radios').on('click', function(e) {
     getTracks();
   }
 });
-
 
 // CREATES THE PLAYLIST
 function getTracks() {
@@ -115,17 +138,12 @@ function playSong(tracks) {
 }
 
 // NEXT SONG
-$('#next-btn').on('click', function() {
-  $('#next-btn').on('mousedown', function() {
-    $('#next-song').addClass('presed-button');
-    $(this).on('mouseup', function() {
-      $('#next-song').removeClass('presed-button');
-    });
-  });
+$('#next-btn').on('mousedown', function() {
+  var element = $(this).attr('id');
+  animateButtons(element)
   stopMusic();
   playSong(currentTracks);
 });
-
 
 // CONTROLLER FOR THE PLAY PAUSE BUTTON
 function songController(track) {
@@ -133,10 +151,8 @@ function songController(track) {
   timer(track);
 
   $('#play-pause-btn').on('mousedown', function() {
-    $('#play-pause').addClass('presed-button');
-    $(this).on('mouseup', function() {
-      $('#play-pause').removeClass('presed-button');
-    });
+    var element = $(this).attr('id');
+    animateButtons(element)
   });
 
   $('#play-pause-btn').on('click', function() {
