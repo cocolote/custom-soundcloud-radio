@@ -1,4 +1,9 @@
 /* Let's put some makeup! */
+@font-face {
+  font-family: "MyFont";
+  src: url(/css/fonts/minisystem.ttf) format(truetype);
+}
+
 body {
   background-image: url(/src/Daft-Punk-Wallpaper.jpg);
   background-repeat: none;
@@ -48,17 +53,32 @@ a {
   margin-right: 1em;
 }
 
+#timer {
+  background-color: rgba(209, 117, 25,0.1);
+  border: 1px solid #2A2827;
+  float: right;
+  margin-right: 0;
+}
+
+#timer-p {
+  font-family: 'MyFont', Courier, monospace;
+  margin-bottom: 0;
+  padding: 0.2em;
+  padding-top: 0.04em;
+}
+
 #song-title-container {
+  background-color: rgba(209, 117, 25,0.1);
   margin-bottom: 0;
 }
 
 #song-title {
+  font-family: 'MyFont', Courier, monospace;
   margin-bottom: 0;
   background-color: rgba(0,0,0,0.4);
   padding: 0.2em;
   border: 1px solid #2A2827;
   height: 2em;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 #player-controllers {
@@ -72,18 +92,17 @@ a {
 
 .btn {
   display: inline-block;
-  height: 4em;
-  width: 4em;
+  height: 2.5em;
+  width: 2.5em;
   margin: 1em;
+  padding: 0;
   margin-bottom: 0.2em;
-  padding: 0.5em;
   border-radius: 100%;
 }
 
 #progress-bar-container {
   margin-top: 0;
   background-color: rgba(0,0,0,0.4);
-  border: 1px solid #2A2827;
   height: 0.25em;
 }
 
@@ -122,7 +141,7 @@ a {
 }
 
 #player-list {
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(209, 117, 25,0.1);
   overflow: auto;
   border: 1px solid #2A2827;
   height: 15em;
@@ -152,7 +171,7 @@ a {
 }
 
 #player-list li {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'MyFont', Courier, monospace;
 }
 
 .light-up {
@@ -160,9 +179,12 @@ a {
 }
 
 .presed-button {
-  background-image: url(/src/orange-splash-ink-hi.png);
-  background-size: 100% 100%;
-  padding: 0.7em;
+  height: 2.4em;
+  width: 2.4em;
+  padding: 0;
+  margin-right: 1.1em;
+  background-color: rgba(209, 117, 25,0.1);
+  box-shadow: 0em 0em 1em #DA6100;
 }
 
 .radio-logout {
