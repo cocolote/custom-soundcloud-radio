@@ -17,7 +17,7 @@ label {
 
 input, select {
   background-color: rgba(0,0,0,0.4) !important;
-  border-color: #2A2827;
+  border-color: #2A2827 !important;
   color: #DA6100 !important;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -29,7 +29,7 @@ a {
 }
 
 #log_in{
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(20,20,20,0.7);
   box-shadow: 0em 0em 1em #DA6100;
   padding: 1em;
   border-radius: 1em;
@@ -41,7 +41,7 @@ a {
 }
 
 .player {
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(25,0,0,0.7);
   border-radius: 1em;
   box-shadow: 0em 0em 1em #DA6100;
   padding: 0.5em;
