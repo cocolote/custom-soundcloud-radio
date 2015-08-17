@@ -22,7 +22,7 @@ function sameRadio(name, category) {
   }
 }
 
-function initialize(client){
+function initialize(client) {
   SC.initialize({
     client_id: client
   });
